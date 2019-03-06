@@ -1,0 +1,6 @@
+.ipynb_checkpoints
+.DS_Store
+__pycache__
+
+# in case scraper is put inside project
+indeed-resume-scraper
