@@ -1,8 +1,13 @@
 import re
 import pandas as pd
 import numpy as np
+from string import punctuation
+from nltk.tokenize import word_tokenize, sent_tokenize
+from nltk.corpus import stopwords
 
-except_space = re.compile(r'[\w ]')
+bullets = re.compile(r'[\u2022|\u25cf]|\s*-')
+punctuation_list = list(punctuation)
+eng_stopwords = stopwords.words('english')
 
 def expand_to_multi_rows(df, col, expanded_col_name):
 	"""Expand column with lists to multiple rows
@@ -35,10 +40,12 @@ def create_new_df_dict_col(df, col):
 	:type df: pandas.DataFrame
 	:param col: Column name
 	:type col: str
+	:return: A new DataFrame with the keys of the dictionary as columns
+	:rtype: pandas.DataFrame
 	"""
 	return df[col].apply(pd.Series)
 
-def simplify_education_informationi_(df, start_col, end_col, non_dates=['Present']):
+def simplify_education_information_(df, start_col, end_col, non_dates=['Present']):
 	"""[MODIFIES] Simplifies education from DataFrame to some simple data values
 	
 	Given DataFrame extracts degree and the duration of the degree (in years)
@@ -86,3 +93,26 @@ def simplify_skills_information_(df, exp_col, extract_pat=r'(\d) year'):
 	:param extract_pat: str, optional
 	"""
 	df[exp_col] = df[exp_col].str.extract(extract_pat)
+
+def _remove_punctuations_and_stopwords(clean_punctuation):
+	def _internal(s):
+		# split sentences further to individual sentences, then word tokenize
+		keepwords = [re.sub(bullets, '', w) for s in sent_tokenize(s) for w in word_tokenize(s) if w not in eng_stopwords]
+		if clean_punctuation:
+			keepwords = [word for word in keepwords if word not in punctuation_list]
+		return keepwords
+	return _internal
+
+_clean_sentence_with_punctuations = _remove_punctuations_and_stopwords(True)
+_clean_sentence_without_punctuations = _remove_punctuations_and_stopwords(False)
+
+def clean_array_of_sentences(df, col, clean_punctuation=True):
+	sentences = df[col].dropna()
+	merged_sentences = sentences.str.join(' ')
+	# in case any is none
+	merged_sentences = merged_sentences.str.lower()
+	if clean_punctuation:
+		merged_sentences = merged_sentences.apply(_clean_sentence_with_punctuations)
+	else:
+		merged_sentences = merged_sentences.apply(_clean_sentence_without_punctuations)
+	return merged_sentences
