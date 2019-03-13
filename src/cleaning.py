@@ -5,7 +5,7 @@ import sys
 from functools import reduce
 
 def merge_on_index(df1, df2):
-	return pd.merge(df1, df2, left_index=True, right_index=True, how='inner')
+	return pd.merge(df1, df2, left_index=True, right_index=True, how='outer')
 
 def clean_school_data(df):
 	edu_df = c.expand_to_multi_rows(df, 'schools', 'school')
@@ -57,7 +57,7 @@ def clean_jobs_data(df):
 	return grouped_and_collect_by_id.reset_index()
 
 def merge_all_clean_data(*args):
-	return reduce(lambda df1, df2: pd.merge(df1, df2, left_on='id', right_on='id', how='inner'), args)	
+	return reduce(lambda df1, df2: pd.merge(df1, df2, left_on='id', right_on='id', how='outer', copy=False), args)	
 
 def main(input, output):
 	dataset = pd.read_json(input, lines=True)
@@ -97,7 +97,7 @@ if __name__ == "__main__":
 
 	results = main(filename, output)
 	print('Total data initially: %d' % results['total'])
-	print('Total non-duplicated data: %d' % results['total'])
+	print('Total non-duplicated data: %d' % results['non_duplicated'])
 	print('Total cleaned data: %d' % len(results['cleaned_data']))
 	print(results['cleaned_data'].head(100))
 
