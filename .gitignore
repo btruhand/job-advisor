@@ -4,3 +4,6 @@ __pycache__
 
 # in case scraper is put inside project
 indeed-resume-scraper
+
+# no raw json files
+*.json
