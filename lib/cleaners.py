@@ -163,8 +163,8 @@ def _remove_punctuations_and_stopwords(clean_punctuation):
 
 	return _internal
 
-_sentence_tokens_without_punctuations = _remove_punctuations_and_stopwords(True)
-_sentence_tokens_with_punctuations = _remove_punctuations_and_stopwords(False)
+sentence_tokens_without_punctuations = _remove_punctuations_and_stopwords(True)
+sentence_tokens_with_punctuations = _remove_punctuations_and_stopwords(False)
 
 def tokenize_array_of_sentences_(df, *cols, clean_punctuation=True, clean_stopwords=True):
 	"""[MODIFIES] Tokenizing array of sentences
@@ -192,9 +192,9 @@ def tokenize_array_of_sentences_(df, *cols, clean_punctuation=True, clean_stopwo
 		sentences.loc[:,col] = sentences[col].str.join(' ')
 		sentences.loc[:,col] = sentences[col].str.lower()
 		if clean_punctuation:
-			sentences[col] = sentences[col].apply(_sentence_tokens_without_punctuations)
+			sentences[col] = sentences[col].apply(sentence_tokens_without_punctuations)
 		else:
-			sentences[col] = sentences[col].apply(_sentence_tokens_with_punctuations)
+			sentences[col] = sentences[col].apply(sentence_tokens_with_punctuations)
 
 	df[cols] = sentences
 	return df
