@@ -5,7 +5,7 @@ import sys
 from functools import reduce
 
 def merge_on_index(df1, df2):
-	return pd.merge(df1, df2, left_index=True, right_index=True, how='outer')
+	return pd.merge(df1, df2, left_index=True, right_index=True, how='inner')
 
 def clean_school_data(df):
 	edu_df = c.expand_to_multi_rows(df, 'schools', 'school')
