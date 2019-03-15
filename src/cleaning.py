@@ -80,10 +80,19 @@ def main(input, output):
 
 	clean_data = merge_all_clean_data(
 		dataset[['id']],
+		cleaned_education_data,
 		cleaned_summary_and_additional,
 		cleaned_skills_data,
 		cleaned_jobs_data
 	)
+
+	# for everything that is missing, set it to empty list
+	def turn_nan_to_empty_list(val):
+		return [] if pd.isna(val) is True else val
+
+	columns_without_id = clean_data.columns.drop('id')
+	clean_data.loc[:, columns_without_id] = clean_data[columns_without_id].apply(lambda s: s.apply(turn_nan_to_empty_list))
+	print(clean_data.head(10))
 
 	return {
 		'total': total_data,
