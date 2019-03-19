@@ -9,3 +9,11 @@ indeed-resume-scraper
 *.json
 
 dataset
+
+# venv things
+lib64
+bin
+
+include
+lib/python3.6
+pyvenv.cfg
