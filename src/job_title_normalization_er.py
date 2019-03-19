@@ -65,7 +65,9 @@ def main(spark, resume_path, titles_path):
 	resume_df.show()
 
 	er_resol = EntityResolution()
-	er_result = er_resol.jaccardJoin(f.broadcast(titles_df), resume_df, 'Alternate Title', 'all_job_titles', 0.5)
+	keep_cols1 = ['O*NET-SOC Code']
+	keep_cols2 = ['resume_id']
+	er_result = er_resol.jaccardJoin(f.broadcast(titles_df), resume_df, 'Alternate Title', 'all_job_titles', 0.5, keep_cols1, keep_cols2)
 	er_result.show()
 	
 	er_result.write.json('job-title-normalization-er', mode='overwrite', compression='gzip')
