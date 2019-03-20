@@ -1,0 +1,32 @@
+Threshold job details tokens 5:
+Number of entries in part-00000-ea4007da-2b22-4ff3-a707-3d2536f298f2-c000.json.gz is 42708
+Number of entries after removing minimum detailed jobs is 38138
+Number of entries in part-00001-ea4007da-2b22-4ff3-a707-3d2536f298f2-c000.json.gz is 52214
+Number of entries after removing minimum detailed jobs is 45043
+Number of entries in part-00002-ea4007da-2b22-4ff3-a707-3d2536f298f2-c000.json.gz is 75296
+Number of entries after removing minimum detailed jobs is 61918
+Number of entries in part-00003-ea4007da-2b22-4ff3-a707-3d2536f298f2-c000.json.gz is 105047
+Number of entries after removing minimum detailed jobs is 85754
+Number of entries in part-00004-ea4007da-2b22-4ff3-a707-3d2536f298f2-c000.json.gz is 103169
+Number of entries after removing minimum detailed jobs is 73952
+Number of entries in part-00005-ea4007da-2b22-4ff3-a707-3d2536f298f2-c000.json.gz is 104260
+Number of entries after removing minimum detailed jobs is 77908
+Number of entries in part-00006-ea4007da-2b22-4ff3-a707-3d2536f298f2-c000.json.gz is 62079
+Number of entries after removing minimum detailed jobs is 43686
+
+
+Threshold job details tokens 10:
+Number of entries in part-00000-ea4007da-2b22-4ff3-a707-3d2536f298f2-c000.json.gz is 42708
+Number of entries after removing minimum detailed jobs is 36812
+Number of entries in part-00001-ea4007da-2b22-4ff3-a707-3d2536f298f2-c000.json.gz is 52214
+Number of entries after removing minimum detailed jobs is 43471
+Number of entries in part-00002-ea4007da-2b22-4ff3-a707-3d2536f298f2-c000.json.gz is 75296
+Number of entries after removing minimum detailed jobs is 56711
+Number of entries in part-00003-ea4007da-2b22-4ff3-a707-3d2536f298f2-c000.json.gz is 105047
+Number of entries after removing minimum detailed jobs is 79611
+Number of entries in part-00004-ea4007da-2b22-4ff3-a707-3d2536f298f2-c000.json.gz is 103169
+Number of entries after removing minimum detailed jobs is 64357
+Number of entries in part-00005-ea4007da-2b22-4ff3-a707-3d2536f298f2-c000.json.gz is 104260
+Number of entries after removing minimum detailed jobs is 68183
+Number of entries in part-00006-ea4007da-2b22-4ff3-a707-3d2536f298f2-c000.json.gz is 62079
+Number of entries after removing minimum detailed jobs is 37006

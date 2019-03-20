@@ -30,7 +30,7 @@ class SchemaCheckingER:
 		return types.StructType([
 			types.StructField('id', types.LongType(), nullable=False),
 			types.StructField('resume_id', types.StringType(), nullable=False),
-			types.StructField('job_titles', types.ArrayType(types.StringType()), nullable=False)
+			types.StructField('job_titles', types.StringType(), nullable=False)
 		])
 	
 	@staticmethod
