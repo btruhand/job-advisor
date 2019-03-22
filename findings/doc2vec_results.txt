@@ -30,3 +30,7 @@ Number of entries in part-00005-ea4007da-2b22-4ff3-a707-3d2536f298f2-c000.json.g
 Number of entries after removing minimum detailed jobs is 68183
 Number of entries in part-00006-ea4007da-2b22-4ff3-a707-3d2536f298f2-c000.json.gz is 62079
 Number of entries after removing minimum detailed jobs is 37006
+
+Number of unique tokens without thresholding job details words is 104671 (stopwords removed)
+
+Number of job description/details after removing empty ones is 457277
