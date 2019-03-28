@@ -39,5 +39,21 @@ class SchemaCheckingER:
 			types.StructField('id', types.LongType(), nullable=False),
 			types.StructField('O*NET-SOC Code', types.StringType(), nullable=False),
 			types.StructField('Title', types.StringType(), nullable=False),
-			types.StructField('Alternate Title', types.ArrayType(types.StringType()), nullable=False),
+			types.StructField('Alternate Title', types.ArrayType(types.MapType()), nullable=False),
+		])
+
+class SchemaDoc2VecTokenize:
+	@staticmethod
+	def get_doc2vec_tokenize_schema():
+		return types.StructType([
+			types.StructField('id', types.StringType(), nullable=False),
+			types.StructField('jobs', types.ArrayType(
+				types.StructType([
+					types.StructField('title', types.StringType(), nullable=False),
+					# types.StructField('company', types.StringType(), nullable=False),
+					# types.StructField('start_date', types.DateType(), nullable=False),
+					# types.StructField('end_date', types.DateType(), nullable=False),
+					types.StructField('details', types.ArrayType(types.StringType()), nullable=False),
+				])
+			), nullable=False)
 		])
