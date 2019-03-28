@@ -17,3 +17,11 @@ bin
 include
 lib/python3.6
 pyvenv.cfg
+
+# doc2vec
+doc2vec_data
+doc2vec_model
+
+# er_results
+er_resume*
+er_titles*
