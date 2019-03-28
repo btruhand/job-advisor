@@ -25,3 +25,6 @@ doc2vec_model
 # er_results
 er_resume*
 er_titles*
+
+# findings folder
+findings
