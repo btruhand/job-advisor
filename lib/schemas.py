@@ -42,6 +42,15 @@ class SchemaCheckingER:
 			types.StructField('Alternate Title', types.ArrayType(types.MapType()), nullable=False),
 		])
 
+class SchemaDoc2VecEvaluation():
+	@staticmethod
+	def get_resume_er_schema():
+		return types.StructType([
+			types.StructField('id', types.LongType(), nullable=False),
+			types.StructField('job_title', types.ArrayType(types.StringType()), nullable=False),
+			types.StructField('job_details', types.ArrayType(types.StringType()), nullable=False),
+		])
+
 class SchemaDoc2VecTokenize:
 	@staticmethod
 	def get_doc2vec_tokenize_schema():
