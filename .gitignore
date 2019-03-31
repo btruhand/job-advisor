@@ -32,3 +32,6 @@ findings
 # ignore potential venv environments
 venv
 .env
+
+# onet data
+onet
