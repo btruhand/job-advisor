@@ -49,7 +49,8 @@ def tokenize_task_statements(task_statement_path):
 	task_statement_df = task_statement_df.rename({'O*NET-SOC Code': 'onet_job_id', 'Title': 'onet_job_title', 'Task': 'task'}, axis='columns')
 	task_statement_df = task_statement_df.groupby(['onet_job_id', 'onet_job_title']).task.apply(lambda s: ' '.join(s)).to_frame()
 	task_statement_df.task = task_statement_df.task.apply(tokenize_string_details)
-	task_statement_df.to_csv('onet/tokenized_onet_occupation_task_statements.csv')
+	task_statement_df = task_statement_df.reset_index()
+	task_statement_df.to_json('onet/tokenized_onet_occupation_task_statements.json', orient='records', lines=True)
 
 def tokenize_resume_jobs(spark, resume_path):
 	resume_df = spark.read.json(resume_path, schema=SchemaDoc2VecTokenize.get_doc2vec_tokenize_resume_schema())
@@ -73,7 +74,6 @@ def tokenize_resume_jobs(spark, resume_path):
 	# keep only those that have more than 5 tokens (arbitrarily chosen breakpoint roughly 10% of the average job tokens)
 	tokenized_details_df = tokenized_details_df.where(f.size('tokenized_details') > 5)
 	tokenized_details_df.write.json('tokenized_job_details_for_doc2vec', compression='gzip', mode='overwrite')
-	# resume_df.show(truncate=False)
 
 if __name__ == "__main__":
 	data_path = sys.argv[1]
