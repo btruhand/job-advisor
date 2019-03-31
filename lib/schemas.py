@@ -53,16 +53,21 @@ class SchemaDoc2VecEvaluation():
 
 class SchemaDoc2VecTokenize:
 	@staticmethod
-	def get_doc2vec_tokenize_schema():
+	def get_doc2vec_tokenize_resume_schema():
 		return types.StructType([
 			types.StructField('id', types.StringType(), nullable=False),
 			types.StructField('jobs', types.ArrayType(
 				types.StructType([
 					types.StructField('title', types.StringType(), nullable=False),
-					# types.StructField('company', types.StringType(), nullable=False),
-					# types.StructField('start_date', types.DateType(), nullable=False),
-					# types.StructField('end_date', types.DateType(), nullable=False),
 					types.StructField('details', types.ArrayType(types.StringType()), nullable=False),
 				])
 			), nullable=False)
+		])
+	
+	@staticmethod
+	def get_doc2vec_tokenize_task_statements_schema():
+		return types.StructType([
+			types.StructField('O*NET-SOC Code', types.StringType()),
+			types.StructField('Title', types.StringType()),
+			types.StringType('Task', types.StringType())
 		])

@@ -28,3 +28,7 @@ er_titles*
 
 # findings folder
 findings
+
+# ignore potential venv environments
+venv
+.env
