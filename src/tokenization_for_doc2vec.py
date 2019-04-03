@@ -3,24 +3,6 @@ import en_core_web_md
 import re
 import sys
 
-# _punctuation_list = list(punctuation)
-# _punctuation_list.remove('+') # remove because of things like C++ (probably + is not in normal text
-# _eng_stopwords = stopwords.words('english')
-
-# # this is a copy and paste from lib/cleaners because can't get that whole module running
-# # on pyspark, so resort to something simpler
-# @f.udf(returnType=types.ArrayType(types.StringType()))
-# def remove_punctuations_and_stopwords(s):
-# 	# split sentences further to individual sentences, then word tokenize
-# 	no_bullets_sentences = [sent for sent in sent_tokenize(s)]
-# 	keepwords = [w for s in no_bullets_sentences for w in word_tokenize(s) if w not in _eng_stopwords]
-# 	keepwords = [word for word in keepwords if word not in _punctuation_list]
-# 	return keepwords
-
-# @f.udf(returnType=types.ArrayType(types.StringType()))
-# def tokenize_job_titles(title):
-#         return title.apply(remove_punctuations_and_stopwords)
-
 # check https://en.wikipedia.org/wiki/Bullet_(typography) for some bullet unicodes
 _bullets = r'\s*[\u2022|\u25cf|\u27a2|\u2023|\u25e6|\u2043|-|*|]\s*'
 
@@ -73,6 +55,7 @@ def tokenize_resume_jobs(spark, resume_path):
 	tokenized_details_df = removed_bullets_df.select('resume_id', 'job_title', tokenizer('non_bulleted_details').alias('tokenized_details'))
 	# keep only those that have more than 5 tokens (arbitrarily chosen breakpoint roughly 10% of the average job tokens)
 	tokenized_details_df = tokenized_details_df.where(f.size('tokenized_details') > 5)
+	tokenized_details_df = tokenized_details_df.withColumn('id', f.monotonically_increasing_id())
 	tokenized_details_df.write.json('tokenized_job_details_for_doc2vec', compression='gzip', mode='overwrite')
 
 if __name__ == "__main__":

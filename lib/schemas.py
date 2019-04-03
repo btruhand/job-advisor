@@ -71,3 +71,12 @@ class SchemaDoc2VecTokenize:
 			types.StructField('Title', types.StringType()),
 			types.StringType('Task', types.StringType())
 		])
+
+	@staticmethod
+	def get_tokenized_task_statements_schema():
+		return types.StructType([
+			types.StructField('id', types.LongType(), nullable=False),
+			types.StructField('resume_id', types.StringType(), nullable=False),
+			types.StructField('job_title', types.StringType(), nullable=False),
+			types.StructField('tokenized_details', types.ArrayType(types.StringType()), nullable=False),
+		])

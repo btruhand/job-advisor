@@ -34,7 +34,7 @@ def corpus_from_task_statements(resume_dir, onet_data):
 	print(resumes[0].head(10))
 
 	job_details = [df['tokenized_details'] for df in resumes]
-	id_maps = [df['resume_id'] for df in resumes]
+	id_maps = [df['id'] for df in resumes]
 	
 	corpus = corpus.append(job_details).reset_index(drop=True)
 	corpus = corpus.str.join(' ')
