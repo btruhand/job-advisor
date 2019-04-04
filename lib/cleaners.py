@@ -23,7 +23,7 @@ def expand_to_multi_rows(df, col, expanded_col_name):
 	:param expanded_col_name: name of column for expanded data
 	:type expanded_col_name: str
 	"""
-	expanded = df.apply(lambda x: pd.Series(x[col]), axis=1).stack().reset_index(level=1, drop=True)
+	expanded = pd.DataFrame(df[col].tolist()).stack().reset_index(level=1, drop=True)
 	return pd.merge(
 		df,
 		pd.DataFrame(expanded, columns=[expanded_col_name]),

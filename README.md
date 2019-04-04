@@ -1,5 +1,8 @@
 # Skills Job Advisor
 
+# Datasets and additional data
+You can find them in this [Google Drive](https://drive.google.com/drive/u/0/folders/1-glxM4PAj-fo3U4Dt2O3ro3RwTeVj8_V) folder (request permission if needed)
+
 # Cleaning data
 
 ## Resume data
