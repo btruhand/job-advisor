@@ -1,6 +1,7 @@
 .ipynb_checkpoints
 .DS_Store
 __pycache__
+.vscode
 
 # in case scraper is put inside project
 indeed-resume-scraper
@@ -35,3 +36,6 @@ venv
 
 # onet data
 onet
+
+# tokenization of job details for doc2vec
+tokenized_job_details_for_doc2vec
