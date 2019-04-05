@@ -26,6 +26,14 @@ def tokenize_string_details(s):
 			tokens.append(token.lower_)
 	return tokens
 
+# for onet job description (expected data is onet_occupation_data_filtered.csv)
+def tokenize_job_descriptions(job_descriptions_path):
+	job_description_df = pd.read_csv(job_descriptions_path)
+	job_description_df = job_description_df.rename({'O*NET-SOC Code': 'onet_job_id', 'Title': 'onet_job_title', 'Description': 'desc'}, axis='columns')
+	job_description_df.desc = job_description_df.desc.apply(tokenize_string_details)
+	job_description_df.to_json('onet/tokenized_onet_occupation_data_filtered.json', orient='records', lines=True)
+
+# for onet task statements (expected data is onet_occupation_task_statements.csv)
 def tokenize_task_statements(task_statement_path):
 	task_statement_df = pd.read_csv(task_statement_path)
 	task_statement_df = task_statement_df.rename({'O*NET-SOC Code': 'onet_job_id', 'Title': 'onet_job_title', 'Task': 'task'}, axis='columns')
@@ -62,7 +70,6 @@ if __name__ == "__main__":
 	data_path = sys.argv[1]
 	type = sys.argv[2]
 
-
 	if type == "resume_jobs":
 		print("Tokenizing Resume Jobs (Spark Job)")
 		from pyspark.sql import SparkSession
@@ -79,6 +86,11 @@ if __name__ == "__main__":
 		import pandas as pd
 		print("Tokenizing Task Statements (Pandas)")
 		tokenize_task_statements(data_path)
+		print("Finished")
+	elif type == "job_descriptions":
+		import pandas as pd
+		print("Tokenizing Job Descriptions (Pandas)")
+		tokenize_job_descriptions(data_path)
 		print("Finished")
 	else:
 		sys.stderr.write("Not a recognizable task type\n")

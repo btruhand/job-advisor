@@ -23,10 +23,9 @@ import numpy as np
 import sys
 import os
 
-def corpus_from_task_statements(resume_dir, onet_data):
-	# this is building corpus directly
+def corpus_from_job_descriptions(resume_dir, onet_data):
 	occupation_data = pd.read_json(onet_data, orient='records', lines=True)
-	resumes = read_json_from_directory(resume_dir, lines=True, compression='gzip')
+	resumes = read_json_from_directory(resume_dir)
 
 	corpus = occupation_data['task']
 	id_mapping = occupation_data['onet_job_id']
@@ -45,6 +44,33 @@ def corpus_from_task_statements(resume_dir, onet_data):
 		os.mkdir('doc2vec_data')
 	np.savetxt('doc2vec_data/corpus_task_statements.cor', corpus.values, fmt='%s')
 	id_mapping.to_csv('doc2vec_data/corpus_task_statements_id_mapping.csv')
+
+# expected resume data to be tokenized_job_details_for_doc2vec
+# expected onet data to either be:
+# - tokenized_onet_occupation_data_filtered.json
+# - tokenized_onet_occupation_task_statements.json
+def corpus_from_onet_data(resume_dir, onet_data, onet_token_key, filename_suffix):
+	# this is building corpus directly
+	occupation_data = pd.read_json(onet_data, orient='records', lines=True)
+	resumes = read_json_from_directory(resume_dir, lines=True, compression='gzip')
+
+	corpus = occupation_data[onet_token_key]
+	id_mapping = occupation_data['onet_job_id']
+
+	print(resumes[0].head(10))
+
+	job_details = [df['tokenized_details'] for df in resumes]
+	id_maps = [df['id'] for df in resumes]
+	
+	corpus = corpus.append(job_details).reset_index(drop=True)
+	corpus = corpus.str.join(' ')
+
+	id_mapping = id_mapping.append(id_maps).reset_index(drop=True)
+	
+	if not os.path.isdir('doc2vec_data'):
+		os.mkdir('doc2vec_data')
+	np.savetxt(f'doc2vec_data/corpus_{filename_suffix}.cor', corpus.values, fmt='%s')
+	id_mapping.to_csv(f'doc2vec_data/corpus_{filename_suffix}_id_mapping.csv', header=False)
 
 def corpus_from_er(resume_dir, onet_data):
 	occupation_data = pd.read_csv(onet_data)
@@ -83,7 +109,9 @@ if __name__ == "__main__":
 		corpus_from_er(resume_dir, onet_data)
 	elif type == "task_statements":
 		# data from task statement information (or treating them as task statements)
-		corpus_from_task_statements(resume_dir, onet_data)
+		corpus_from_onet_data(resume_dir, onet_data, 'task', 'task_statements')
+	elif type == "job_descriptions":
+		corpus_from_onet_data(resume_dir, onet_data, 'desc', 'job_descriptions')
 	else:
 		sys.stderr.write("Unrecognizable type\n")
 		sys.exit(1)
