@@ -1,7 +1,11 @@
 # Skills Job Advisor
 
-# Datasets and additional data
+# Datasets, raw findings and additional data
 You can find them in this [Google Drive](https://drive.google.com/drive/u/0/folders/1-glxM4PAj-fo3U4Dt2O3ro3RwTeVj8_V) folder (request permission if needed)
+
+These datasets come from Indeed resume repository which was scraped using this [scraping tool](https://github.com/btruhand/indeed-resume-scraper) that we also built ourselves.
+
+Data should not contain any private details (but they may accidentally do, considering the unstructured nature of resumes). We ask of you not to share or make the data public, thank you.
 
 # Cleaning data
 
